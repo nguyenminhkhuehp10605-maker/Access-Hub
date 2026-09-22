@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>:root{color-scheme:light dark}[hidden]{display:none!important}</style>
+<title>NEXT STEP Access Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap">
+<style>
+:root{
+  --bg:#FAFAF8;
+  --surface:#FFFFFF;
+  --surface-2:#F0F6F6;
+  --surface-3:#E6F0EF;
+  --ink:#16242A;
+  --ink-muted:#54676C;
+  --ink-faint:#87999D;
+  --line:#E1E8E7;
+  --line-strong:#CBD9D8;
+  --teal-900:#123641;
+  --teal-700:#1B4B5A;
+  --teal-600:#2E7D8C;
+  --teal-500:#4B9CAA;
+  --teal-100:#DCEEF0;
+  --teal-50:#F1F9FA;
+  --amber-700:#8A5A1E;
+  --amber-600:#AD7A2E;
+  --amber-100:#F5E8D3;
+  --amber-50:#FBF3E6;
+  --rose-700:#8C3A2E;
+  --rose-600:#B14A3C;
+  --rose-100:#F6E1DC;
+  --rose-50:#FBEEEB;
+  --good-700:#245C3C;
+  --good-600:#3E8B5C;
+  --good-100:#DCEFE2;
+  --good-50:#F0F9F3;
+  --shadow-sm: 0 1px 2px rgba(20,40,45,.05), 0 2px 8px rgba(20,40,45,.05);
+  --shadow-md: 0 2px 4px rgba(20,40,45,.06), 0 10px 24px rgba(20,40,45,.08);
+  --font: 'Be Vietnam Pro', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --maxw: 760px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1416; --surface:#121D20; --surface-2:#162224; --surface-3:#1B2A2C;
+    --ink:#E7EFEF; --ink-muted:#9DB1B4; --ink-faint:#6E8488;
+    --line:#213233; --line-strong:#2C4042;
+    --teal-900:#EAF6F7; --teal-700:#9CDCE6; --teal-600:#6FC0CE; --teal-500:#4E9DAB; --teal-100:#173338; --teal-50:#12272B;
+    --amber-700:#F0CE97; --amber-600:#DCAA5E; --amber-100:#3B2C15; --amber-50:#2A2011;
+    --rose-700:#EFB2A5; --rose-600:#DE8874; --rose-100:#3B211C; --rose-50:#2A1815;
+    --good-700:#B6E4C6; --good-600:#6FBE8E; --good-100:#173B27; --good-50:#11291B;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.25);
+    --shadow-md: 0 2px 6px rgba(0,0,0,.4), 0 14px 30px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1416; --surface:#121D20; --surface-2:#162224; --surface-3:#1B2A2C;
+  --ink:#E7EFEF; --ink-muted:#9DB1B4; --ink-faint:#6E8488;
+  --line:#213233; --line-strong:#2C4042;
+  --teal-900:#EAF6F7; --teal-700:#9CDCE6; --teal-600:#6FC0CE; --teal-500:#4E9DAB; --teal-100:#173338; --teal-50:#12272B;
+  --amber-700:#F0CE97; --amber-600:#DCAA5E; --amber-100:#3B2C15; --amber-50:#2A2011;
+  --rose-700:#EFB2A5; --rose-600:#DE8874; --rose-100:#3B211C; --rose-50:#2A1815;
+  --good-700:#B6E4C6; --good-600:#6FBE8E; --good-100:#173B27; --good-50:#11291B;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.25);
+  --shadow-md: 0 2px 6px rgba(0,0,0,.4), 0 14px 30px rgba(0,0,0,.4);
+}
+ 
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font); font-size:15.5px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+a{color:var(--teal-600)}
+a:focus-visible, button:focus-visible{outline:2px solid var(--teal-600); outline-offset:2px}
+h1,h2,h3{font-family:var(--font); text-wrap:balance; margin:0}
+p{margin:0}
+img{max-width:100%}
+button{font-family:var(--font)}
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:20px}
+ 
+/* ---------- emergency bar ---------- */
+.ebar{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+  background:var(--rose-700); color:#FDF3F0;
+  padding:9px 16px; padding-top:calc(9px + env(safe-area-inset-top,0px));
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+  gap:4px 14px; font-size:12.5px; font-weight:600;
+}
+.ebar b{font-weight:800}
+.ebar__label{opacity:.85; font-weight:700; letter-spacing:.02em}
+.ebar a{color:#FDF3F0; text-decoration:none; padding:2px 4px; border-radius:4px}
+.ebar a:hover, .ebar a:focus-visible{background:rgba(255,255,255,.16)}
+.ebar__sep{opacity:.5}
+ 
+/* ---------- jump row ---------- */
+.jump{padding-block:14px 4px}
+.jump__inner{display:flex; gap:7px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px}
+.jump__inner::-webkit-scrollbar{display:none}
+.jump a{
+  flex:0 0 auto; white-space:nowrap; font-size:12.5px; font-weight:700;
+  color:var(--teal-700); text-decoration:none; padding:7px 13px;
+  border-radius:999px; border:1px solid var(--line-strong); background:var(--surface);
+}
+.jump a:hover{background:var(--teal-50); border-color:var(--teal-500)}
+ 
+/* ---------- hero ---------- */
+.hero{padding-block:26px 22px}
+.kicker{
+  display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--teal-700); background:var(--teal-100);
+  padding:5px 12px; border-radius:999px; margin-bottom:16px;
+}
+.hero h1{font-size:clamp(26px,6vw,36px); font-weight:800; color:var(--teal-900); letter-spacing:-.01em}
+.hero .lede{margin-top:13px; max-width:56ch; font-size:16px; color:var(--ink-muted)}
+.meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
+.meta-chip{
+  font-size:12.5px; font-weight:600; color:var(--ink-muted);
+  background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:6px 10px;
+}
+.meta-chip b{color:var(--ink); font-weight:700}
+.meta-chip--proto{color:var(--amber-700); background:var(--amber-50); border-color:var(--amber-100)}
+ 
+/* ---------- free/confidential banner ---------- */
+.banner{
+  background:var(--teal-700); color:#F5FBFB; border-radius:16px; padding:20px 22px;
+  margin-top:24px; box-shadow:var(--shadow-md); display:flex; gap:14px; align-items:flex-start;
+}
+.banner__icon{font-size:22px; line-height:1; flex:0 0 auto; margin-top:1px}
+.banner h2{font-size:15px; font-weight:800; color:#EAFBFA}
+.banner p{margin-top:6px; font-size:13.5px; color:#CFEEF1; line-height:1.55}
+ 
+/* ---------- sections ---------- */
+.section{padding-block:44px; border-top:1px solid var(--line); scroll-margin-top:56px}
+.section-head{margin-bottom:20px}
+.eyebrow{
+  display:inline-block; font-size:11.5px; font-weight:800; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--amber-700); background:var(--amber-100);
+  padding:4px 10px; border-radius:6px; margin-bottom:12px;
+}
+.eyebrow--teal{color:var(--teal-700); background:var(--teal-100)}
+.eyebrow--rose{color:var(--rose-700); background:var(--rose-100)}
+.section h2{font-size:clamp(20px,4vw,25px); font-weight:800; color:var(--ink)}
+.section .dek{margin-top:9px; color:var(--ink-muted); max-width:60ch; font-size:14.5px}
+.section .dek--proto{
+  margin-top:12px; font-size:12.5px; color:var(--amber-700); background:var(--amber-50);
+  border:1px dashed var(--amber-100); border-radius:8px; padding:8px 12px; max-width:60ch;
+}
+ 
+/* ---------- self-check tool ---------- */
+.sc-tool{
+  background:var(--surface); border:1px solid var(--line); border-radius:18px;
+  padding:22px 20px 24px; box-shadow:var(--shadow-md);
+}
+.sc-progress{display:flex; gap:6px; margin-bottom:18px}
+.sc-dot{height:5px; flex:1 1 0; border-radius:999px; background:var(--line-strong)}
+.sc-dot.is-current{background:var(--teal-500)}
+.sc-dot.is-done{background:var(--teal-700)}
+.sc-panel{}
+.sc-privacy{
+  font-size:11.5px; color:var(--ink-faint); margin-bottom:10px; display:flex; gap:6px; align-items:center;
+}
+.sc-q{font-size:17px; font-weight:700; color:var(--ink); line-height:1.4}
+.sc-help{margin-top:6px; font-size:12.5px; color:var(--ink-muted)}
+.sc-opts{display:grid; gap:9px; margin-top:16px}
+.sc-opt{
+  text-align:left; font-size:14px; font-weight:600; color:var(--ink);
+  background:var(--surface-2); border:1px solid var(--line); border-radius:11px;
+  padding:12px 14px; cursor:pointer; transition:border-color .15s, background .15s;
+}
+.sc-opt:hover{border-color:var(--teal-500); background:var(--teal-50)}
+.sc-opt:active{transform:translateY(1px)}
+ 
+/* result panels */
+.sc-result__badge{
+  display:inline-block; font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+  padding:4px 10px; border-radius:999px; margin-bottom:12px;
+}
+.sc-result h3{font-size:18px; font-weight:800; line-height:1.4}
+.sc-result p{margin-top:8px; font-size:14px; color:var(--ink-muted); line-height:1.6}
+.sc-cta-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+.sc-cta{
+  display:inline-flex; align-items:center; gap:7px; text-decoration:none;
+  font-size:13.5px; font-weight:700; padding:11px 16px; border-radius:10px; border:1px solid transparent;
+}
+.sc-cta--primary{background:var(--teal-700); color:#F5FBFB}
+.sc-cta--primary:hover{background:var(--teal-900)}
+.sc-cta--urgent{background:var(--rose-700); color:#FDF3F0}
+.sc-cta--urgent:hover{background:var(--rose-700); filter:brightness(1.08)}
+.sc-cta--ghost{background:var(--surface); border-color:var(--line-strong); color:var(--ink)}
+.sc-cta--ghost:hover{border-color:var(--teal-500); color:var(--teal-700)}
+.sc-tiplist{margin:14px 0 0; padding-left:18px; display:grid; gap:6px}
+.sc-tiplist li{font-size:13.5px; color:var(--ink-muted)}
+.sc-restart{
+  margin-top:18px; background:none; border:none; padding:0; font-size:12.5px; font-weight:700;
+  color:var(--ink-faint); text-decoration:underline; cursor:pointer;
+}
+.sc-restart:hover{color:var(--teal-700)}
+.sc-result--urgent .sc-result__badge{background:var(--rose-100); color:var(--rose-700)}
+.sc-result--caution .sc-result__badge{background:var(--amber-100); color:var(--amber-700)}
+.sc-result--book .sc-result__badge{background:var(--teal-100); color:var(--teal-700)}
+.sc-result--peer .sc-result__badge{background:var(--teal-100); color:var(--teal-700)}
+.sc-result--selfcare .sc-result__badge{background:var(--good-100); color:var(--good-700)}
+ 
+/* mode toggle */
+.mode-toggle{display:flex; gap:6px; margin-bottom:16px; background:var(--surface-2); border:1px solid var(--line); border-radius:11px; padding:4px}
+.mode-btn{
+  flex:1 1 0; text-align:center; font-size:12.5px; font-weight:700; color:var(--ink-muted);
+  background:transparent; border:none; border-radius:8px; padding:9px 10px; cursor:pointer;
+}
+.mode-btn.is-active{background:var(--surface); color:var(--teal-700); box-shadow:var(--shadow-sm)}
+ 
+/* insight / memory / feedback (shown under results, not during questions) */
+.sc-insight{margin-top:14px; padding:10px 12px; background:var(--teal-50); border:1px solid var(--teal-100); border-radius:10px; font-size:13px; color:var(--teal-900); line-height:1.55}
+.sc-memory{
+  margin-top:12px; padding:10px 12px; background:var(--surface-2); border:1px solid var(--line); border-radius:10px;
+  display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.sc-memory[hidden]{display:none}
+.sc-memory p{font-size:12.5px; color:var(--ink-muted); line-height:1.5}
+.sc-memory__clear{
+  flex:0 0 auto; background:none; border:none; padding:0; font-size:11.5px; font-weight:700;
+  color:var(--ink-faint); text-decoration:underline; cursor:pointer;
+}
+.sc-memory__clear:hover{color:var(--teal-700)}
+.sc-feedback{margin-top:16px; padding-top:16px; border-top:1px dashed var(--line)}
+.sc-feedback__q{font-size:13px; font-weight:600; color:var(--ink-muted)}
+.sc-tags{display:flex; flex-wrap:wrap; gap:7px; margin-top:10px}
+.sc-tag{
+  font-size:12px; font-weight:600; color:var(--ink-muted); background:var(--surface-2);
+  border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer;
+}
+.sc-tag:hover{border-color:var(--teal-500)}
+.sc-tag.is-picked{background:var(--teal-700); border-color:var(--teal-700); color:#F5FBFB}
+.sc-feedback__thanks{margin-top:10px; font-size:12.5px; color:var(--good-700); font-weight:600}
+.sc-proto-note{margin-top:10px; font-size:11px; color:var(--ink-faint); line-height:1.5}
+ 
+/* ---------- booking steps ---------- */
+.steps{display:grid; gap:12px}
+.step{
+  display:flex; gap:14px; background:var(--surface); border:1px solid var(--line);
+  border-radius:14px; padding:16px 16px; box-shadow:var(--shadow-sm);
+}
+.step__num{
+  flex:0 0 auto; width:30px; height:30px; border-radius:999px; background:var(--teal-700); color:#F5FBFB;
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13.5px;
+}
+.step__body h3{font-size:14.5px; font-weight:700; color:var(--ink)}
+.step__body p{margin-top:4px; font-size:13.5px; color:var(--ink-muted); line-height:1.55}
+.booking-cta{margin-top:16px}
+.placeholder-note{
+  margin-top:10px; font-size:12px; color:var(--amber-700); background:var(--amber-50);
+  border:1px dashed var(--amber-100); border-radius:8px; padding:7px 11px; display:inline-block;
+}
+ 
+/* ---------- navigator cards ---------- */
+.nav-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; margin-top:16px}
+.nav-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:14px 12px; text-align:center; box-shadow:var(--shadow-sm);
+}
+.nav-avatar{
+  width:52px; height:52px; border-radius:999px; margin:0 auto 10px; background:var(--teal-100);
+  color:var(--teal-700); display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:16px; border:1.5px dashed var(--teal-500);
+}
+.nav-card h4{font-size:12.5px; font-weight:700; color:var(--ink)}
+.nav-card span{display:block; margin-top:3px; font-size:10.5px; color:var(--amber-700)}
+.rule-box{
+  margin-top:18px; background:var(--teal-50); border:1px solid var(--teal-100); border-radius:12px;
+  padding:14px 16px; display:flex; gap:12px; align-items:flex-start;
+}
+.rule-box__icon{font-size:18px; line-height:1}
+.rule-box p{font-size:13.5px; color:var(--teal-900); font-weight:600; line-height:1.55}
+.rule-box p b{font-weight:800}
+.contact-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+.contact-pill{
+  font-size:12.5px; font-weight:700; color:var(--ink-muted); background:var(--surface-2);
+  border:1px solid var(--line); border-radius:999px; padding:8px 13px;
+}
+ 
+/* ---------- emergency panel ---------- */
+.emg-grid{display:grid; gap:12px; margin-top:16px}
+.emg-card{
+  background:var(--surface); border:1px solid var(--rose-100); border-left:4px solid var(--rose-600);
+  border-radius:12px; padding:14px 16px; box-shadow:var(--shadow-sm);
+}
+.emg-card--calm{border-left-color:var(--teal-500); border-color:var(--line)}
+.emg-card h3{font-size:14.5px; font-weight:800; color:var(--ink)}
+.emg-card p{margin-top:5px; font-size:13px; color:var(--ink-muted); line-height:1.55}
+.emg-card a{font-weight:700; text-decoration:none}
+.emg-card a:hover{text-decoration:underline}
+.verify-note{
+  margin-top:14px; font-size:12px; color:var(--rose-700); background:var(--rose-50);
+  border:1px dashed var(--rose-100); border-radius:8px; padding:9px 12px;
+}
+ 
+/* ---------- off-campus resources ---------- */
+.res-frame{
+  font-size:13px; color:var(--ink-muted); background:var(--surface-2); border:1px solid var(--line);
+  border-radius:10px; padding:10px 13px; margin-bottom:16px;
+}
+.res-grid{display:grid; gap:12px}
+.res-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:15px 16px; box-shadow:var(--shadow-sm);
+}
+.res-card__head{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+.res-card h3{font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.4}
+.res-card__addr{margin-top:5px; font-size:13px; color:var(--ink-muted)}
+.res-card__note{margin-top:7px; font-size:12.5px; color:var(--teal-700); background:var(--teal-50); border-radius:7px; padding:6px 9px; display:inline-block}
+.tag{
+  flex:0 0 auto; font-size:10.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+  padding:4px 8px; border-radius:6px; white-space:nowrap;
+}
+.tag--verified{color:var(--good-700); background:var(--good-100)}
+.tag--check{color:var(--amber-700); background:var(--amber-100)}
+.consider-box{
+  margin-top:16px; background:var(--amber-50); border:1px solid var(--amber-100); border-radius:12px;
+  padding:14px 16px;
+}
+.consider-box h4{font-size:13px; font-weight:800; color:var(--amber-700)}
+.consider-box p{margin-top:6px; font-size:13px; color:var(--ink-muted); line-height:1.6}
+ 
+/* ---------- KPI strip ---------- */
+.kpi-strip{
+  background:var(--surface-3); border-radius:16px; padding:20px 22px; display:flex; gap:14px; align-items:flex-start;
+}
+.kpi-strip__icon{font-size:20px; line-height:1}
+.kpi-strip h3{font-size:13.5px; font-weight:800; color:var(--teal-900)}
+.kpi-strip p{margin-top:6px; font-size:13px; color:var(--ink-muted); line-height:1.6}
+.kpi-strip a{font-weight:700}
+ 
+/* ---------- footer ---------- */
+.foot{padding-block:32px; border-top:1px solid var(--line)}
+.foot p{font-size:12px; color:var(--ink-faint); line-height:1.7; max-width:60ch}
+.foot p + p{margin-top:6px}
+ 
+@media (max-width:480px){
+  .banner{flex-direction:column}
+  .sc-cta-row{flex-direction:column; align-items:stretch}
+  .sc-cta{justify-content:center}
+}
+</style>
+</head>
+<body>
+ 
+<div class="ebar" id="top">
+  <span class="ebar__label">Cần trợ giúp ngay?</span>
+  <span class="ebar__sep">·</span>
+  <a href="tel:115"><b>Gọi 115</b> (khẩn cấp)</a>
+  <span class="ebar__sep">·</span>
+  <a href="tel:0963061414"><b>096 306 1414</b> (Ngày Mai, 8:00–20:00)</a>
+</div>
+ 
+<div class="wrap">
+ 
+  <div class="jump">
+    <div class="jump__inner">
+      <a href="#selfcheck">Tự kiểm tra</a>
+      <a href="#booking">Đặt lịch</a>
+      <a href="#navigator">Peer Navigator</a>
+      <a href="#emergency">Khẩn cấp</a>
+      <a href="#offcampus">Ngoài trường</a>
+    </div>
+  </div>
+ 
+  <section class="hero">
+    <span class="kicker">NEXT STEP @ Swinburne · Access Hub</span>
+    <h1>Từ “bạn ổn chứ?” đến bước tiếp theo cụ thể</h1>
+    <p class="lede">Mọi thứ bạn cần để biết mình đang ổn tới đâu, và làm gì tiếp theo — miễn phí, bảo mật, chỉ mất vài phút. Không cần biết trước mình "có vấn đề" hay không mới được dùng trang này.</p>
+    <div class="meta-row">
+      <span class="meta-chip"><b>Miễn phí</b> 100%</span>
+      <span class="meta-chip"><b>Bảo mật</b> với bạn cùng lớp</span>
+      <span class="meta-chip">Dành cho SV năm nhất</span>
+      <span class="meta-chip meta-chip--proto">Bản mẫu — góp ý trước Access Week</span>
+    </div>
+ 
+    <div class="banner">
+      <span class="banner__icon" aria-hidden="true">✓</span>
+      <div>
+        <h2>Tư vấn tâm lý 1:1 tại Swinburne Việt Nam hoàn toàn miễn phí</h2>
+        <p>Rào cản lớn nhất sinh viên đưa ra là lo về chi phí — nhưng dịch vụ này bạn đã có sẵn qua học phí. Không phát sinh thêm chi phí nào khi đặt lịch qua PickTime, Thứ 2–Thứ 6, 9:00–17:00.</p>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ============ SELF-CHECK TOOL ============ -->
+  <section class="section" id="selfcheck">
+    <div class="section-head">
+      <span class="eyebrow eyebrow--teal">Trung tâm của Access Hub</span>
+      <h2>Tự Kiểm Tra &amp; Định Hướng — "Bạn thật sự đang thế nào?"</h2>
+      <p class="dek">4 câu hỏi ngắn, không mang tính chẩn đoán, giúp bạn (và Hub) biết nên đi bước nào tiếp theo — từ mẹo tự chăm sóc đến đặt lịch tư vấn ngay. Dùng cho chính mình, hoặc chuyển chế độ bên dưới để biết nên làm gì khi lo cho một người bạn.</p>
+      <p class="dek dek--proto">⚙ Đây là bản demo tương tác cho thấy đúng logic phân luồng. Bản triển khai thật trong Access Week sẽ chạy qua Google Form/Instagram (theo Section 2.4) và nối vào Khảo sát 2 để đo KPI.</p>
+    </div>
+ 
+    <div class="sc-tool" id="selfcheck-tool">
+      <div class="mode-toggle" role="group" aria-label="Chọn đối tượng tự kiểm tra">
+        <button type="button" class="mode-btn is-active" data-mode="me">Cho tôi</button>
+        <button type="button" class="mode-btn" data-mode="friend">Cho một người bạn</button>
+      </div>
+ 
+      <div class="sc-progress" aria-hidden="true">
+        <span class="sc-dot is-current" data-dot="0"></span>
+        <span class="sc-dot" data-dot="1"></span>
+        <span class="sc-dot" data-dot="2"></span>
+        <span class="sc-dot" data-dot="3"></span>
+      </div>
+ 
+      <!-- Q1: safety gate -->
+      <div class="sc-panel" data-panel="q-safety">
+        <p class="sc-privacy">🔒 <span data-me="Không có câu trả lời nào được gửi đi. Nếu trình duyệt cho phép, Hub nhớ tạm kết quả gần nhất trên máy bạn để so sánh — có thể xoá bất cứ lúc nào." data-friend="Không có câu trả lời nào được gửi đi — công cụ chỉ chạy trên máy bạn.">Không có câu trả lời nào được gửi đi. Nếu trình duyệt cho phép, Hub nhớ tạm kết quả gần nhất trên máy bạn để so sánh — có thể xoá bất cứ lúc nào.</span></p>
+        <h3 class="sc-q" data-me="Ngay lúc này, bạn có đang nghĩ đến việc làm tổn thương bản thân, hoặc cảm thấy không muốn tiếp tục sống không?" data-friend="Người ấy có từng nói hoặc cho thấy dấu hiệu muốn làm tổn thương bản thân, hoặc không muốn tiếp tục sống, gần đây không?">Ngay lúc này, bạn có đang nghĩ đến việc làm tổn thương bản thân, hoặc cảm thấy không muốn tiếp tục sống không?</h3>
+        <p class="sc-help" data-me="Câu này luôn được hỏi đầu tiên, chỉ để Hub biết nên đưa bạn tới đâu nhanh nhất." data-friend="Câu này luôn được hỏi đầu tiên — nhận ra dấu hiệu sớm (bước &quot;Question&quot; trong QPR) là điều một người bạn có thể làm, không cần là chuyên gia.">Câu này luôn được hỏi đầu tiên, chỉ để Hub biết nên đưa bạn tới đâu nhanh nhất.</p>
+        <div class="sc-opts">
+          <button class="sc-opt" data-q="safety" data-v="no">Không</button>
+          <button class="sc-opt" data-q="safety" data-v="yes">Có</button>
+          <button class="sc-opt" data-q="safety" data-v="unsure" data-me="Tôi không chắc / không muốn nói" data-friend="Tôi không chắc">Tôi không chắc / không muốn nói</button>
+        </div>
+      </div>
+ 
+      <!-- Q2: stress -->
+      <div class="sc-panel" data-panel="q-stress" hidden>
+        <h3 class="sc-q" data-me="Trong khoảng 2 tuần qua, mức độ căng thẳng hoặc lo âu của bạn thế nào?" data-friend="Trong khoảng 2 tuần qua, theo bạn thấy, mức độ căng thẳng hoặc lo âu của người ấy thế nào?">Trong khoảng 2 tuần qua, mức độ căng thẳng hoặc lo âu của bạn thế nào?</h3>
+        <div class="sc-opts">
+          <button class="sc-opt" data-q="stress" data-v="0" data-me="Như bình thường, tôi vẫn xoay xở tốt" data-friend="Như bình thường, có vẻ vẫn ổn">Như bình thường, tôi vẫn xoay xở tốt</button>
+          <button class="sc-opt" data-q="stress" data-v="1" data-me="Hơi nhiều hơn thường ngày" data-friend="Hơi nhiều hơn bình thường">Hơi nhiều hơn thường ngày</button>
+          <button class="sc-opt" data-q="stress" data-v="2" data-me="Khá nhiều — tôi thấy khó tập trung" data-friend="Khá nhiều — có vẻ khó tập trung">Khá nhiều — tôi thấy khó tập trung</button>
+          <button class="sc-opt" data-q="stress" data-v="3" data-me="Rất nhiều, gần như mỗi ngày" data-friend="Rất nhiều, gần như ngày nào cũng vậy">Rất nhiều, gần như mỗi ngày</button>
+        </div>
+      </div>
+ 
+      <!-- Q3: functioning -->
+      <div class="sc-panel" data-panel="q-function" hidden>
+        <h3 class="sc-q" data-me="Việc học hoặc sinh hoạt hằng ngày của bạn có đang bị ảnh hưởng không?" data-friend="Việc học hoặc sinh hoạt hằng ngày của người ấy có vẻ đang bị ảnh hưởng không?">Việc học hoặc sinh hoạt hằng ngày của bạn có đang bị ảnh hưởng không?</h3>
+        <div class="sc-opts">
+          <button class="sc-opt" data-q="function" data-v="0" data-me="Không ảnh hưởng gì" data-friend="Không ảnh hưởng gì, theo bạn thấy">Không ảnh hưởng gì</button>
+          <button class="sc-opt" data-q="function" data-v="1" data-me="Ảnh hưởng nhẹ, tôi vẫn theo kịp" data-friend="Ảnh hưởng nhẹ, có vẻ vẫn theo kịp">Ảnh hưởng nhẹ, tôi vẫn theo kịp</button>
+          <button class="sc-opt" data-q="function" data-v="2" data-me="Ảnh hưởng rõ — hay trễ deadline, bỏ lớp" data-friend="Ảnh hưởng rõ — hay trễ deadline, bỏ lớp/bỏ hẹn">Ảnh hưởng rõ — hay trễ deadline, bỏ lớp</button>
+          <button class="sc-opt" data-q="function" data-v="3" data-me="Gần như không duy trì được nhịp học/sinh hoạt" data-friend="Có vẻ gần như không duy trì được nhịp học/sinh hoạt">Gần như không duy trì được nhịp học/sinh hoạt</button>
+        </div>
+      </div>
+ 
+      <!-- Q4: support access -->
+      <div class="sc-panel" data-panel="q-support" hidden>
+        <h3 class="sc-q" data-me="Bạn có ai để chia sẻ khi cần không?" data-friend="Bạn có phải là người người ấy dễ mở lời cùng nhất không?">Bạn có ai để chia sẻ khi cần không?</h3>
+        <div class="sc-opts">
+          <button class="sc-opt" data-q="support" data-v="0" data-me="Có, và tôi thấy thoải mái khi nói ra" data-friend="Có, người ấy có vẻ thoải mái khi nói với tôi">Có, và tôi thấy thoải mái khi nói ra</button>
+          <button class="sc-opt" data-q="support" data-v="1" data-me="Có, nhưng tôi ngại hoặc chưa muốn nói" data-friend="Có thể, nhưng người ấy có vẻ ngại mở lời">Có, nhưng tôi ngại hoặc chưa muốn nói</button>
+          <button class="sc-opt" data-q="support" data-v="2" data-me="Thật ra tôi không có ai để nói" data-friend="Tôi nghĩ người ấy không thật sự có ai để nói">Thật ra tôi không có ai để nói</button>
+        </div>
+      </div>
+ 
+      <!-- RESULT: urgent -->
+      <div class="sc-panel sc-result sc-result--urgent" data-panel="r-urgent" hidden>
+        <span class="sc-result__badge">Cần hỗ trợ ngay</span>
+        <h3 data-me="Bạn không cần tự xử lý việc này một mình." data-friend="Đừng để người ấy một mình lúc này.">Bạn không cần tự xử lý việc này một mình.</h3>
+        <p data-me="Điều bạn vừa chia sẻ là điều nghiêm túc và xứng đáng được hỗ trợ ngay — không phải chờ đặt lịch trước. Hãy liên hệ một trong hai số dưới đây, hoặc tìm một Peer Navigator/người bạn tin tưởng đang ở gần bạn ngay bây giờ." data-friend="Ở lại bên cạnh nếu có thể. Gọi 115 hoặc đường dây nóng cùng người ấy, hoặc báo ngay cho Peer Navigator/người lớn tin cậy — bạn không cần là người duy nhất xử lý việc này.">Điều bạn vừa chia sẻ là điều nghiêm túc và xứng đáng được hỗ trợ ngay — không phải chờ đặt lịch trước. Hãy liên hệ một trong hai số dưới đây, hoặc tìm một Peer Navigator/người bạn tin tưởng đang ở gần bạn ngay bây giờ.</p>
+        <div class="sc-cta-row">
+          <a class="sc-cta sc-cta--urgent" href="tel:115">📞 Gọi 115 (cấp cứu)</a>
+          <a class="sc-cta sc-cta--urgent" href="tel:0963061414">📞 Đường dây nóng Ngày Mai</a>
+          <a class="sc-cta sc-cta--ghost" href="#navigator" data-me="Tìm Peer Navigator" data-friend="Báo Peer Navigator ngay">Tìm Peer Navigator</a>
+        </div>
+        <p style="margin-top:14px; font-size:12px; color:var(--ink-faint)">Công cụ này không thay thế đánh giá y tế hay chuyên môn. Nếu bạn hoặc ai đó đang gặp nguy hiểm ngay lập tức, hãy gọi 115.</p>
+        <button class="sc-restart" type="button">↺ Làm lại từ đầu</button>
+      </div>
+ 
+      <!-- RESULT: caution (unsure) -->
+      <div class="sc-panel sc-result sc-result--caution" data-panel="r-caution" hidden>
+        <span class="sc-result__badge">Nên nói chuyện với ai đó sớm</span>
+        <h3 data-me="Có vẻ như đây là lúc tốt để tìm một người lắng nghe." data-friend="Rủ người ấy nói chuyện với ai đó, sớm thôi.">Có vẻ như đây là lúc tốt để tìm một người lắng nghe.</h3>
+        <p data-me="Bạn chọn &quot;không chắc&quot; — điều đó cũng đáng được lắng nghe nghiêm túc. Bạn có thể đặt lịch tư vấn miễn phí, nhắn Peer Navigator, hoặc gọi đường dây nóng nếu muốn nói chuyện ngay hôm nay." data-friend="Bạn không cần có câu trả lời hoàn hảo — chỉ cần hỏi thật lòng và lắng nghe (bước &quot;Persuade&quot; trong QPR). Nếu người ấy đồng ý, bạn có thể cùng đặt lịch tư vấn, giới thiệu Peer Navigator, hoặc gợi ý đường dây nóng.">Bạn chọn "không chắc" — điều đó cũng đáng được lắng nghe nghiêm túc. Bạn có thể đặt lịch tư vấn miễn phí, nhắn Peer Navigator, hoặc gọi đường dây nóng nếu muốn nói chuyện ngay hôm nay.</p>
+        <div class="sc-cta-row">
+          <a class="sc-cta sc-cta--primary" href="#booking" data-me="Đặt lịch tư vấn miễn phí" data-friend="Gợi ý đặt lịch tư vấn cùng">Đặt lịch tư vấn miễn phí</a>
+          <a class="sc-cta sc-cta--ghost" href="#navigator" data-me="Nhắn Peer Navigator" data-friend="Giới thiệu Peer Navigator">Nhắn Peer Navigator</a>
+          <a class="sc-cta sc-cta--ghost" href="tel:0963061414">Đường dây nóng Ngày Mai</a>
+        </div>
+        <button class="sc-restart" type="button">↺ Làm lại từ đầu</button>
+      </div>
+ 
+      <!-- RESULT: book (tier 3) -->
+      <div class="sc-panel sc-result sc-result--book" data-panel="r-book" hidden>
+        <span class="sc-result__badge">Bước tiếp theo: đặt lịch</span>
+        <h3 data-me="Đây là lúc phù hợp để đặt một buổi tư vấn miễn phí, bảo mật." data-friend="Gợi ý người ấy đặt một buổi tư vấn miễn phí, bảo mật.">Đây là lúc phù hợp để đặt một buổi tư vấn miễn phí, bảo mật.</h3>
+        <p data-me="Những gì bạn vừa mô tả đang ảnh hưởng thật đến cuộc sống hằng ngày của bạn. Nói chuyện với người có chuyên môn — miễn phí, qua PickTime — là bước cụ thể và hợp lý nhất lúc này." data-friend="Những gì bạn mô tả có vẻ đang ảnh hưởng thật đến người ấy. Đừng ép — hỏi xem người ấy có muốn bạn đi cùng đặt lịch không. Đôi khi chỉ cần có người đi cùng bước đầu tiên.">Những gì bạn vừa mô tả đang ảnh hưởng thật đến cuộc sống hằng ngày của bạn. Nói chuyện với người có chuyên môn — miễn phí, qua PickTime — là bước cụ thể và hợp lý nhất lúc này.</p>
+        <div class="sc-cta-row">
+          <a class="sc-cta sc-cta--primary" href="#booking" data-me="Xem cách đặt lịch (3 bước)" data-friend="Xem cách đặt lịch cùng người ấy">Xem cách đặt lịch (3 bước)</a>
+          <a class="sc-cta sc-cta--ghost" href="#navigator" data-me="Muốn ai đó đặt lịch cùng bạn?" data-friend="Nhờ Navigator hỗ trợ cùng?">Muốn ai đó đặt lịch cùng bạn?</a>
+        </div>
+        <button class="sc-restart" type="button">↺ Làm lại từ đầu</button>
+      </div>
+ 
+      <!-- RESULT: peer (tier 2) -->
+      <div class="sc-panel sc-result sc-result--peer" data-panel="r-peer" hidden>
+        <span class="sc-result__badge">Bước tiếp theo: chia sẻ</span>
+        <h3 data-me="Thử chia sẻ với một người bạn tin tưởng hoặc một Peer Navigator trước." data-friend="Chủ động hỏi thăm người ấy trước.">Thử chia sẻ với một người bạn tin tưởng hoặc một Peer Navigator trước.</h3>
+        <p data-me="Bạn có vẻ đang xoay xở được, nhưng không cần đợi đến khi &quot;đủ tệ&quot; mới nói ra. Một cuộc trò chuyện ngắn có thể giúp bạn thấy nhẹ hơn — và nếu cần thêm, Peer Navigator có thể giúp bạn đặt lịch tư vấn." data-friend="Một câu hỏi thật lòng (&quot;Dạo này cậu ổn không?&quot;) có thể là đủ. Bạn không cần ép người ấy nói ngay — chỉ cần cho họ biết có người để ý. Nếu cần thêm, Peer Navigator luôn sẵn sàng.">Bạn có vẻ đang xoay xở được, nhưng không cần đợi đến khi "đủ tệ" mới nói ra. Một cuộc trò chuyện ngắn có thể giúp bạn thấy nhẹ hơn — và nếu cần thêm, Peer Navigator có thể giúp bạn đặt lịch tư vấn.</p>
+        <div class="sc-cta-row">
+          <a class="sc-cta sc-cta--primary" href="#navigator" data-me="Gặp Peer Navigator" data-friend="Giới thiệu Peer Navigator">Gặp Peer Navigator</a>
+          <a class="sc-cta sc-cta--ghost" href="#booking" data-me="Hoặc đặt lịch tư vấn luôn" data-friend="Hoặc gợi ý đặt lịch tư vấn">Hoặc đặt lịch tư vấn luôn</a>
+        </div>
+        <button class="sc-restart" type="button">↺ Làm lại từ đầu</button>
+      </div>
+ 
+      <!-- RESULT: selfcare (tier 1) -->
+      <div class="sc-panel sc-result sc-result--selfcare" data-panel="r-selfcare" hidden>
+        <span class="sc-result__badge">Bạn đang xoay xở khá tốt</span>
+        <h3 data-me="Không có gì cấp thiết ngay lúc này — vài mẹo nhỏ để giữ nhịp đó." data-friend="Không có gì cấp thiết — nhưng vẫn đáng để hỏi thăm.">Không có gì cấp thiết ngay lúc này — vài mẹo nhỏ để giữ nhịp đó.</h3>
+        <ul class="sc-tiplist" data-tiplist="me">
+          <li>Giữ giờ ngủ đều đặn, kể cả tuần thi</li>
+          <li>Dành 10 phút/ngày cho việc không phải "làm cho xong" — đi bộ, nghe nhạc, gọi cho gia đình</li>
+          <li>Nói với một người bạn nếu điều gì bắt đầu nặng hơn — đừng đợi một mình quá lâu</li>
+        </ul>
+        <ul class="sc-tiplist" data-tiplist="friend" hidden>
+          <li>Thỉnh thoảng chủ động nhắn hỏi thăm — không cần chờ người ấy mở lời trước</li>
+          <li>Rủ đi cà phê hoặc đi bộ, thay vì chỉ hỏi thẳng "cậu ổn không" — đôi khi vậy dễ mở lòng hơn</li>
+          <li>Nếu điều gì đó bắt đầu nặng hơn, quay lại làm bài này hoặc nhắn Peer Navigator cùng nhau</li>
+        </ul>
+        <div class="sc-cta-row">
+          <a class="sc-cta sc-cta--ghost" href="#offcampus">Xem thêm lựa chọn hỗ trợ</a>
+        </div>
+        <p style="margin-top:14px; font-size:12px; color:var(--ink-faint)" data-me="Hub này vẫn ở đây bất cứ lúc nào điều đó thay đổi — bạn có thể quay lại làm bài tự kiểm tra bất kỳ lúc nào." data-friend="Hub này vẫn ở đây bất cứ lúc nào điều đó thay đổi — bạn có thể quay lại làm bài tự kiểm tra cho người ấy bất kỳ lúc nào.">Hub này vẫn ở đây bất cứ lúc nào điều đó thay đổi — bạn có thể quay lại làm bài tự kiểm tra bất kỳ lúc nào.</p>
+        <button class="sc-restart" type="button">↺ Làm lại từ đầu</button>
+      </div>
+ 
+      <!-- shared: answer-aware insight, return-visit comparison, optional feedback signal -->
+      <p class="sc-insight" id="scInsight" hidden></p>
+ 
+      <div class="sc-memory" id="scMemory" hidden>
+        <p id="scMemoryText"></p>
+        <button type="button" class="sc-memory__clear" id="scMemoryClear">Xoá dữ liệu đã lưu</button>
+      </div>
+ 
+      <div class="sc-feedback" id="scFeedback" hidden>
+        <p class="sc-feedback__q" data-me="Không bắt buộc — điều gì khiến bạn ngại tìm hỗ trợ nhất?" data-friend="Không bắt buộc — theo bạn, điều gì khiến người ấy ngại tìm hỗ trợ nhất?">Không bắt buộc — điều gì khiến bạn ngại tìm hỗ trợ nhất?</p>
+        <div class="sc-tags" role="group">
+          <button type="button" class="sc-tag" data-tag="fear">Sợ bị đánh giá</button>
+          <button type="button" class="sc-tag" data-tag="start">Không biết bắt đầu từ đâu</button>
+          <button type="button" class="sc-tag" data-tag="cost">Ngại chi phí</button>
+          <button type="button" class="sc-tag" data-tag="time">Không có thời gian</button>
+          <button type="button" class="sc-tag" data-tag="other">Khác</button>
+        </div>
+        <p class="sc-feedback__thanks" id="scFeedbackThanks" hidden>Cảm ơn bạn đã chia sẻ 🤍</p>
+        <p class="sc-proto-note">Bản mẫu: lựa chọn của bạn chỉ hiển thị ở đây, chưa được gửi đi đâu cả. Bản triển khai thật sẽ gom (ẩn danh) câu trả lời này để Peer Navigator biết nên chuẩn bị gì cho Access Week.</p>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ============ BOOKING WALKTHROUGH ============ -->
+  <section class="section" id="booking">
+    <div class="section-head">
+      <span class="eyebrow eyebrow--teal">3 bước</span>
+      <h2>Đặt lịch tư vấn miễn phí qua PickTime</h2>
+      <p class="dek">Không cần giấy giới thiệu, không cần "đủ nghiêm trọng" mới được đặt. Buổi đầu tiên chủ yếu là làm quen.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__num">1</span>
+        <div class="step__body">
+          <h3>Mở PickTime từ link/QR trên thẻ Access Hub</h3>
+          <p>Chọn mục "Counselling Service" của Swinburne Việt Nam.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num">2</span>
+        <div class="step__body">
+          <h3>Chọn một khung giờ trống</h3>
+          <p>Thứ 2–Thứ 6, 9:00–17:00. Điền vài thông tin cơ bản — thông tin này chỉ Phòng Tư vấn được biết.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num">3</span>
+        <div class="step__body">
+          <h3>Nhận email xác nhận, rồi đến đúng giờ</h3>
+          <p>Buổi đầu không có "chẩn đoán" hay bài kiểm tra — chỉ là làm quen và nói bạn muốn trao đổi điều gì.</p>
+        </div>
+      </div>
+    </div>
+    <div class="booking-cta">
+      <a class="sc-cta sc-cta--primary" href="#" aria-disabled="true">Mở PickTime</a>
+      <div><span class="placeholder-note">⚠ Cần gắn link PickTime thật trước khi publish bản chính thức</span></div>
+    </div>
+  </section>
+ 
+  <!-- ============ PEER NAVIGATOR ============ -->
+  <section class="section" id="navigator">
+    <div class="section-head">
+      <span class="eyebrow">Con người, không chỉ thông tin</span>
+      <h2>Đội Peer Navigator</h2>
+      <p class="dek">Chính các thành viên nhóm dự án — được huấn luyện theo mô hình QPR (Question – Persuade – Refer) — có mặt trong suốt Access Week.</p>
+    </div>
+ 
+    <div class="nav-grid">
+      <div class="nav-card"><div class="nav-avatar">?</div><h4>Navigator 1</h4><span>ảnh + tên thật cập nhật</span></div>
+      <div class="nav-card"><div class="nav-avatar">?</div><h4>Navigator 2</h4><span>ảnh + tên thật cập nhật</span></div>
+      <div class="nav-card"><div class="nav-avatar">?</div><h4>Navigator 3</h4><span>ảnh + tên thật cập nhật</span></div>
+      <div class="nav-card"><div class="nav-avatar">?</div><h4>Navigator 4</h4><span>ảnh + tên thật cập nhật</span></div>
+    </div>
+ 
+    <div class="contact-row">
+      <span class="contact-pill">💬 Zalo: [gắn số thật]</span>
+      <span class="contact-pill">📷 Instagram DM: [gắn handle thật]</span>
+      <span class="contact-pill">📍 Bàn trực tiếp: Tuần 2, giờ ăn trưa (dự kiến)</span>
+    </div>
+ 
+    <div class="rule-box">
+      <span class="rule-box__icon" aria-hidden="true">🛡️</span>
+      <p><b>Nguyên tắc duy nhất:</b> Navigator chỉ lắng nghe và kết nối — <b>không tư vấn, không chẩn đoán</b>. Với lựa chọn ngoài Swinburne, Navigator chỉ giúp xác minh thông tin liên hệ (có thật không, chi phí khoảng bao nhiêu), không đánh giá nơi nào "tốt hơn."</p>
+    </div>
+  </section>
+ 
+  <!-- ============ EMERGENCY PANEL ============ -->
+  <section class="section" id="emergency">
+    <div class="section-head">
+      <span class="eyebrow eyebrow--rose">Ngoài giờ hành chính</span>
+      <h2>Khi cần hỗ trợ gấp</h2>
+      <p class="dek">Dịch vụ tư vấn của Swinburne chỉ hoạt động Thứ 2–Thứ 6, 9:00–17:00. Ngoài khung giờ đó, đây là các kênh đã xác minh:</p>
+    </div>
+    <div class="emg-grid">
+      <div class="emg-card">
+        <h3>115 — Cấp cứu y tế / an toàn khẩn cấp</h3>
+        <p>Gọi ngay nếu có nguy hiểm tức thời đến tính mạng. TP.HCM cũng có thể tiếp nhận qua 113/114 cùng hệ thống điều phối. <a href="tel:115">Gọi 115</a></p>
+      </div>
+      <div class="emg-card">
+        <h3>Đường dây nóng Ngày Mai Project — 096 306 1414</h3>
+        <p>Miễn phí, 8:00–20:00 mỗi ngày, hỗ trợ khủng hoảng cảm xúc. <a href="tel:0963061414">Gọi ngay</a></p>
+      </div>
+      <div class="emg-card emg-card--calm">
+        <h3>Sáng hôm sau, quay lại đặt lịch Swinburne</h3>
+        <p>Nếu tình huống không khẩn cấp nhưng bạn cần nói chuyện sớm, đặt lịch buổi gần nhất qua PickTime vẫn là lựa chọn nhanh nhất trong giờ hành chính.</p>
+      </div>
+    </div>
+    <p class="verify-note">⚠ Việt Nam đang trong quá trình hợp nhất các số khẩn cấp về 113 — nhóm dự án cần xác minh lại toàn bộ số điện thoại ở trên với Student HQ trước khi in ấn hoặc công bố chính thức.</p>
+  </section>
+ 
+  <!-- ============ OFF-CAMPUS RESOURCES ============ -->
+  <section class="section" id="offcampus">
+    <div class="section-head">
+      <span class="eyebrow">Cho ai muốn thêm lựa chọn</span>
+      <h2>Kênh hỗ trợ ngoài Swinburne (đã xác minh)</h2>
+      <p class="dek">Dành cho bạn muốn có chuyên khoa sâu hơn, chăm sóc dài hạn, hoặc đơn giản là một nơi gần nhà hơn.</p>
+    </div>
+    <p class="res-frame">📋 Đây là một <b>menu để bạn có thêm lựa chọn</b> — không phải bảng xếp hạng. Swinburne không đánh giá chất lượng các cơ sở này.</p>
+ 
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-card__head">
+          <h3>Khoa Tâm thần kinh — Bệnh viện Đại học Y Dược TP.HCM</h3>
+          <span class="tag tag--verified">Đã xác minh</span>
+        </div>
+        <p class="res-card__addr">215 Hồng Bàng, Quận 5, TP.HCM</p>
+        <span class="res-card__note">Điện thoại liên hệ: <em>[cần bổ sung]</em></span>
+      </div>
+      <div class="res-card">
+        <div class="res-card__head">
+          <h3>Bệnh viện Tâm thần TP.HCM</h3>
+          <span class="tag tag--verified">Đã xác minh</span>
+        </div>
+        <p class="res-card__addr">192 Hàm Tử, Quận 5, TP.HCM</p>
+        <span class="res-card__note">Chi phí thấp hơn nếu có BHYT</span>
+      </div>
+      <div class="res-card">
+        <div class="res-card__head">
+          <h3>Khoa Tâm thể — Bệnh viện Đa khoa Khu vực Thủ Đức</h3>
+          <span class="tag tag--verified">Đã xác minh</span>
+        </div>
+        <p class="res-card__addr">29 Phú Châu, TP. Thủ Đức</p>
+        <span class="res-card__note">Có đường dây tư vấn 24/7 — phù hợp SV ở khu Đông thành phố</span>
+      </div>
+    </div>
+ 
+    <div class="consider-box">
+      <h4>Đang cân nhắc bổ sung — chưa đưa vào chính thức</h4>
+      <p>Nhóm nhận thêm một số gợi ý từ nguồn khác (ví dụ: PRIDE MindZ) chưa được xác minh độc lập theo tiêu chuẩn của Access Hub (Section 2.4). Sẽ chỉ thêm vào danh sách chính thức sau khi kiểm chứng — để tránh giới thiệu nhầm một kênh chưa rõ ràng.</p>
+    </div>
+  </section>
+ 
+  <section class="section">
+    <div class="kpi-strip">
+      <span class="kpi-strip__icon" aria-hidden="true">🎯</span>
+      <div>
+        <h3>Vì sao trang này tồn tại</h3>
+        <p>Mục tiêu đo lường của cả dự án: tăng ít nhất <b>15 điểm phần trăm</b> tỷ lệ sinh viên tự tin biết mình nên tìm đến đâu khi cần hỗ trợ — đo bằng cách so khớp từng người giữa Khảo sát 1 (Phần B, trước khi dùng Hub) và Khảo sát 2 (sau khi dùng Hub). Access Hub là nơi biến sự tự tin đó thành một hành động cụ thể — và câu hỏi nhỏ, không bắt buộc sau mỗi lượt Tự Kiểm Tra là kênh để Navigator biết rào cản nào đang phổ biến nhất trước khi Access Week bắt đầu. Chi tiết KPI &amp; quy trình khảo sát ở <a href="https://claude.ai/artifact/N4vqcPqyD83MtN24owb8h5" target="_blank" rel="noopener">Sổ Tay NEXT STEP</a>.</p>
+      </div>
+    </div>
+  </section>
+ 
+  <footer class="foot">
+    <p><b>NEXT STEP @ Swinburne</b> — bản mẫu Access Hub, tiếng Việt. Bản tiếng Anh sẽ làm sau khi nhóm chốt nội dung tiếng Việt.</p>
+    <p>Mọi mục đánh dấu <em>[cần bổ sung]</em> hoặc "cần xác minh" đều là chỗ nhóm cần điền thông tin thật trước khi in ấn/publish chính thức.</p>
+  </footer>
+</div>
+ 
+<script>
+(function(){
+  var order = ['q-safety','q-stress','q-function','q-support'];
+  var idx = 0;
+  var answers = {};
+  var forcedFloor = null;
+  var currentMode = 'me';
+ 
+  var panels = {};
+  document.querySelectorAll('.sc-panel').forEach(function(p){
+    panels[p.getAttribute('data-panel')] = p;
+  });
+  var dots = document.querySelectorAll('.sc-dot');
+  var toolEl = document.getElementById('selfcheck-tool');
+ 
+  var STORAGE_KEY = 'nextstep_selfcheck_last';
+  var TIER_LABELS = {
+    'r-urgent': 'Cần hỗ trợ ngay',
+    'r-caution': 'Nên nói chuyện sớm',
+    'r-book': 'Nên đặt lịch tư vấn',
+    'r-peer': 'Nên chia sẻ với ai đó',
+    'r-selfcare': 'Đang xoay xở tốt'
+  };
+  var TIER_RANK = { 'r-selfcare':0, 'r-peer':1, 'r-caution':2, 'r-book':2, 'r-urgent':3 };
+  var INSIGHTS = {
+    stress: {
+      me: 'Mức căng thẳng bạn mô tả là điều đáng được lắng nghe, không phải điều phải "chịu đựng cho qua."',
+      friend: 'Mức căng thẳng bạn thấy ở người ấy là điều đáng chú ý — đừng cho rằng nó sẽ tự qua.'
+    },
+    'function': {
+      me: 'Việc học đang bị ảnh hưởng rõ — nói với cố vấn học tập hoặc Navigator có thể giúp bạn không phải tự xoay xở một mình với deadline.',
+      friend: 'Việc học/sinh hoạt của người ấy có vẻ đang chịu ảnh hưởng thật — đó thường là dấu hiệu đáng hỏi thêm, không chỉ là "lười" nhất thời.'
+    },
+    support: {
+      me: 'Bạn nói mình không thật sự có ai để chia sẻ — đó có thể là điểm bắt đầu tốt nhất, không nhất thiết phải là chuyện lớn.',
+      friend: 'Có vẻ người ấy không có nhiều người để nói — điều đó khiến việc bạn chủ động hỏi thăm quan trọng hơn bạn nghĩ.'
+    }
+  };
+ 
+  function showPanel(key){
+    Object.keys(panels).forEach(function(k){
+      panels[k].hidden = (k !== key);
+    });
+  }
+ 
+  function updateDots(){
+    dots.forEach(function(d,i){
+      d.classList.toggle('is-current', i === idx);
+      d.classList.toggle('is-done', i < idx);
+    });
+  }
+ 
+  function dotsAllDone(){
+    dots.forEach(function(d){
+      d.classList.remove('is-current');
+      d.classList.add('is-done');
+    });
+  }
+ 
+  function goTo(i){
+    idx = i;
+    updateDots();
+    showPanel(order[idx]);
+  }
+ 
+  function finish(){
+    if (forcedFloor){ goToResult(forcedFloor); return; }
+    var score = (answers.stress || 0) + (answers['function'] || 0) + (answers.support || 0);
+    var tier = score <= 2 ? 'r-selfcare' : (score <= 5 ? 'r-peer' : 'r-book');
+    goToResult(tier);
+  }
+ 
+  function readLastEntry(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (!obj || !obj.tier || !TIER_LABELS[obj.tier] || !obj.date) return null;
+      return obj;
+    } catch (e){ return null; }
+  }
+ 
+  function writeEntry(tier){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ tier: tier, date: new Date().toISOString(), mode: currentMode }));
+    } catch (e){ /* storage unavailable — the comparison is a convenience, not required */ }
+  }
+ 
+  function clearEntry(){
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e){}
+    var box = document.getElementById('scMemory');
+    if (box) box.hidden = true;
+  }
+ 
+  function renderMemory(newTier, show){
+    var prev = readLastEntry();
+    writeEntry(newTier);
+    var box = document.getElementById('scMemory');
+    var text = document.getElementById('scMemoryText');
+    if (!box || !text) return;
+    if (!show || !prev){ box.hidden = true; return; }
+    var days = Math.max(0, Math.round((Date.now() - new Date(prev.date).getTime()) / 86400000));
+    var whenTxt = days === 0 ? 'lần trước đó, hôm nay' : (days === 1 ? 'hôm qua' : days + ' ngày trước');
+    var cmp = 'tương tự lần trước';
+    if (TIER_RANK[newTier] < TIER_RANK[prev.tier]) cmp = 'nhẹ hơn lần trước';
+    else if (TIER_RANK[newTier] > TIER_RANK[prev.tier]) cmp = 'nặng hơn lần trước — đừng ngại tìm thêm hỗ trợ nếu cần';
+    text.textContent = 'Lần gần nhất (' + whenTxt + '): "' + TIER_LABELS[prev.tier] + '". Lần này có vẻ ' + cmp + '.';
+    box.hidden = false;
+  }
+ 
+  function renderInsight(show){
+    var el = document.getElementById('scInsight');
+    if (!el) return;
+    if (!show){ el.hidden = true; return; }
+    var dims = ['stress','function','support'];
+    var max = -1, pick = null;
+    dims.forEach(function(d){
+      var v = answers[d] || 0;
+      if (v > max){ max = v; pick = d; }
+    });
+    if (max <= 0 || !pick || !INSIGHTS[pick]){ el.hidden = true; return; }
+    el.textContent = '💡 ' + INSIGHTS[pick][currentMode];
+    el.hidden = false;
+  }
+ 
+  function resetFeedback(show){
+    var box = document.getElementById('scFeedback');
+    if (!box) return;
+    box.hidden = !show;
+    document.querySelectorAll('.sc-tag').forEach(function(t){ t.classList.remove('is-picked'); });
+    var thanks = document.getElementById('scFeedbackThanks');
+    if (thanks) thanks.hidden = true;
+  }
+ 
+  function goToResult(key){
+    dotsAllDone();
+    showPanel(key);
+    var showExtras = (key !== 'r-urgent');
+    renderInsight(showExtras);
+    renderMemory(key, showExtras);
+    resetFeedback(showExtras);
+  }
+ 
+  function reset(){
+    idx = 0;
+    answers = {};
+    forcedFloor = null;
+    dots.forEach(function(d){ d.classList.remove('is-current','is-done'); });
+    goTo(0);
+  }
+ 
+  function applyMode(mode){
+    currentMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(function(b){
+      b.classList.toggle('is-active', b.getAttribute('data-mode') === mode);
+    });
+    document.querySelectorAll('[data-me]').forEach(function(el){
+      var val = el.getAttribute(mode === 'friend' ? 'data-friend' : 'data-me');
+      if (val !== null) el.textContent = val;
+    });
+    document.querySelectorAll('[data-tiplist]').forEach(function(el){
+      el.hidden = (el.getAttribute('data-tiplist') !== mode);
+    });
+  }
+ 
+  document.querySelectorAll('.sc-opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var q = btn.getAttribute('data-q');
+      var raw = btn.getAttribute('data-v');
+      answers[q] = (q === 'safety') ? raw : Number(raw);
+ 
+      if (q === 'safety'){
+        if (raw === 'yes'){ goToResult('r-urgent'); return; }
+        if (raw === 'unsure'){ forcedFloor = 'r-caution'; }
+        goTo(1);
+        return;
+      }
+      if (q === 'stress'){ goTo(2); return; }
+      if (q === 'function'){ goTo(3); return; }
+      if (q === 'support'){ finish(); return; }
+    });
+  });
+ 
+  document.querySelectorAll('.sc-restart').forEach(function(btn){
+    btn.addEventListener('click', reset);
+  });
+ 
+  document.querySelectorAll('.mode-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var m = btn.getAttribute('data-mode');
+      if (m === currentMode) return;
+      applyMode(m);
+      reset();
+    });
+  });
+ 
+  document.querySelectorAll('.sc-tag').forEach(function(tag){
+    tag.addEventListener('click', function(){
+      document.querySelectorAll('.sc-tag').forEach(function(t){ t.classList.remove('is-picked'); });
+      tag.classList.add('is-picked');
+      var thanks = document.getElementById('scFeedbackThanks');
+      if (thanks) thanks.hidden = false;
+    });
+  });
+ 
+  var clearBtn = document.getElementById('scMemoryClear');
+  if (clearBtn) clearBtn.addEventListener('click', clearEntry);
+ 
+  if (toolEl){ applyMode('me'); goTo(0); }
+})();
+</script>
+</body>
+</html>
+ 
